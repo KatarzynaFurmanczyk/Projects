@@ -1,0 +1,468 @@
+{
+	"info": {
+		"_postman_id": "6ca362d7-daba-428f-9940-9a5bf4ab3be5",
+		"name": "Postman extended Katarzyna Furmańczyk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "33344655-6ca362d7-daba-428f-9940-9a5bf4ab3be5"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21dcbcc5-e514-4651-8c8c-1c089cf68710",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							" pm.test(\"Test all response properties\", () => {\r",
+							"    pm.response.to.have.jsonBody('user.username')\r",
+							"        .and.to.have.jsonBody('user.email')\r",
+							"        .and.to.have.jsonBody('user.token')\r",
+							"        .and.to.have.jsonBody('user.bio')\r",
+							"        .and.to.have.jsonBody('user.image');\r",
+							"  });\r",
+							"\r",
+							"pm.environment.set(\"nameConduit\", pm.response.json().user.username);\r",
+							"\r",
+							"pm.environment.set(\"emailConduit\", pm.response.json().user.email);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8910ec3c-6bab-42ad-b565-dd93aa3c05fa",
+						"exec": [
+							"const username = 'user_' + Math.floor(Math.random() * 10000);\r",
+							"pm.environment.set('nameConduit', username);\r",
+							"\r",
+							"const email = 'mail' + Math.floor(Math.random() * 10000) + '@mail.mail';\r",
+							"pm.environment.set('emailConduit', email);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "af006390-9975-49e6-9eef-8a1bc5465405",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"username\": \"{{nameConduit}}\",\r\n    \"email\": \"{{emailConduit}}\",\r\n    \"password\": \"{{passwordConduit}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}users",
+					"host": [
+						"{{URL}}users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c30c7f97-1fef-41b6-b72c-643a5f673281",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							" pm.test(\"Test all response properties\", () => {\r",
+							"    pm.response.to.have.jsonBody('user.username')\r",
+							"        .and.to.have.jsonBody('user.email')\r",
+							"        .and.to.have.jsonBody('user.token')\r",
+							"        .and.to.have.jsonBody('user.bio')\r",
+							"        .and.to.have.jsonBody('user.image');\r",
+							"  });\r",
+							"\r",
+							"pm.environment.set(\"tokenConduit\", pm.response.json().user.token);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0f75b297-c16b-4d64-82f3-09f004c71119",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "df7625ee-4bcf-4383-94a0-f905e9f23fd6",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"email\": \"{{emailConduit}}\",\r\n    \"password\": \"{{passwordConduit}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}users/login",
+					"host": [
+						"{{URL}}users"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a81ff7e-0314-42a9-ac63-6f83e3f99080",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							" pm.test(\"Test all response properties after added article\", () => {\r",
+							"    pm.response.to.have.jsonBody('article.slug')\r",
+							"        .and.to.have.jsonBody('article.title')\r",
+							"        .and.to.have.jsonBody('article.description')\r",
+							"        .and.to.have.jsonBody('article.createdAt')\r",
+							"        .and.to.have.jsonBody('article.updatedAt')\r",
+							"        .and.to.have.jsonBody('article.tagList')\r",
+							"        .and.to.have.jsonBody('article.favorited')\r",
+							"        .and.to.have.jsonBody('article.favoritesCount')\r",
+							"        .and.to.have.jsonBody('article.author');\r",
+							"  });\r",
+							"\r",
+							"pm.environment.set(\"slugConduit\", pm.response.json().article.slug);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "259edc5a-045f-497d-9a5a-35c94bba729a",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "1cb106e3-4269-47a8-8a4a-edbb555eeb99",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{tokenConduit}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"article\": {\r\n        \"title\": \"Title 1\",\r\n        \"description\": \"Topic 1\",\r\n        \"body\": \"Text of the article\",\r\n        \"tagList\": []\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}articles",
+					"host": [
+						"{{URL}}articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add cmoment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c15c2884-fc52-42b4-9523-b9e4a7b7c040",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							" pm.test(\"Test all response properties after added comment\", () => {\r",
+							"    pm.response.to.have.jsonBody('comment.id')\r",
+							"        .and.to.have.jsonBody('comment.body')\r",
+							"        .and.to.have.jsonBody('comment.createdAt')\r",
+							"        .and.to.have.jsonBody('comment.updatedAt')\r",
+							"        .and.to.have.jsonBody('comment.author');\r",
+							"  });\r",
+							"\r",
+							"  pm.environment.set(\"commentId\", pm.response.json().comment.id);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f6f5f00c-d737-4148-8fe9-1915c71cebce",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "d2766515-2e84-471a-8eda-5b9dbf5db7ba",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{tokenConduit}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": {\r\n        \"body\": \"Nice\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}articles/{{slugConduit}}/comments",
+					"host": [
+						"{{URL}}articles"
+					],
+					"path": [
+						"{{slugConduit}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b8209203-eba8-4fae-8add-3cac560420bd",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"  pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "54f9a09a-c7ed-4378-8fc4-42e557874db3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "279e3df5-5b27-44b2-83f0-9b839d7f37b9",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{tokenConduit}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}articles/{{slugConduit}}/comments/{{commentId}}",
+					"host": [
+						"{{URL}}articles"
+					],
+					"path": [
+						"{{slugConduit}}",
+						"comments",
+						"{{commentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99a05e3d-fbd5-483f-b8d2-5f59e72478cb",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"  pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5634bdf9-96e4-4ccb-b77c-45d396a8ce3d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "5be3b0d8-0553-4908-a9fa-b46c3545e50a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{tokenConduit}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}articles/{{slugConduit}}",
+					"host": [
+						"{{URL}}articles"
+					],
+					"path": [
+						"{{slugConduit}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f5463ce4-0841-40d6-813f-5f7890a4e42b",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fb9089bc-d2f4-477c-adde-0626f5505f8b",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "9f39344d-0825-468c-94a6-e72ad27f8eb7",
+			"key": "URL",
+			"value": "https://conduit.mate.academy/api/",
+			"type": "string"
+		},
+		{
+			"id": "88fc9146-3f89-4e2e-bc00-3a4c2f7d7eee",
+			"key": "passwordConduit",
+			"value": "Kat123@",
+			"type": "string"
+		}
+	]
+}

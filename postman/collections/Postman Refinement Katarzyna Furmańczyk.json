@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "a770d372-eaed-447a-847e-072372767cd4",
+		"name": "Postman Refinement Katarzyna Furmańczyk",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "33344655-a770d372-eaed-447a-847e-072372767cd4"
+	},
+	"item": [
+		{
+			"name": "Successful login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68907cd4-42c1-4098-a120-935551e61672",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Username property is exists\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.username).not.to.eql(null);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Bio property is null\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.bio).not.to.eql(null);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "cc834d32-a265-4b5f-bf97-0f7fa2ea5d47",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "email",
+						"value": "{{email}}",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "{{password}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users/login",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unsuccessful login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8ae63ab-e7f2-43ed-8308-b1db18691a61",
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"  pm.response.to.have.status(422);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email property is exists\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.email).not.to.eql(null);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Password property is exists\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.password).not.to.eql(null);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6c6466a0-882d-4051-9768-0dee027bca93",
+						"exec": [
+							"const password = 'P@ssword' + Math.floor(Math.random() * 10000);\r",
+							"pm.environment.set('randomPassword', password)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "374c6fb6-2dcb-44e8-969e-4e06c958e823",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{randomPassword}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users/login",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unsuccessful registration with exisiting email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4086c0d-d02e-44fb-bed6-383b71fe4182",
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"  pm.response.to.have.status(422);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains 'errors' property\", function () {\r",
+							"  pm.response.to.have.jsonBody('errors');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error message about taken email\", function () {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.errors.email[0]).to.eql('This email is taken.');\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "155fd980-bcef-4271-bd4a-2fcb2027e971",
+						"exec": [
+							"const username = 'user_' + Math.floor(Math.random() * 10000);\r",
+							"pm.environment.set('randomUserName', username)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "a77f7e4d-933e-4c7a-acb2-d848eb62d296",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"username\": \"{{randomUserName}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unsuccessful registration with exisiting username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7472522c-acb6-445f-85f1-053df7be4e8e",
+						"exec": [
+							"pm.test(\"Status code is 422\", function () {\r",
+							"  pm.response.to.have.status(422);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains 'errors' property\", function () {\r",
+							"  pm.response.to.have.jsonBody('errors');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error message about taken username\", function () {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.errors.username[0]).to.eql('This username is taken.');\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "99d8ba90-9748-4788-b319-4083b4db86c2",
+						"exec": [
+							"const email = 'kat-' + Math.floor(Math.random() * 10000) + '@kat.kat';\r",
+							"pm.environment.set('randomEmail', email);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "231f6266-c478-490a-9984-f998e7cc6292",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"username\": \"{{username}}\",\r\n    \"email\": \"{{randomEmail}}\",\r\n    \"password\": \"{{password}}\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c2cb2797-5c7b-4317-a16b-0a9d1cbe6aa6",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "819f9ddb-cfdd-4cb2-8fc7-118a4205b503",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "903fad34-9f9f-440b-8096-55ea03d8856a",
+		"name": "Postman: Students API [Katarzyna Furmańczyk]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "33344655-903fad34-9f9f-440b-8096-55ea03d8856a"
+	},
+	"item": [
+		{
+			"name": "Download all goods",
+			"id": "e8b57103-1d09-41fc-9be5-9b0022018256",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://mate.academy/students-api/goods",
+					"protocol": "https",
+					"host": [
+						"mate",
+						"academy"
+					],
+					"path": [
+						"students-api",
+						"goods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download item ID 245",
+			"id": "7c569f26-2c06-4302-9bf6-3be5ce4a2e40",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://mate.academy/students-api/goods/:itemID:245",
+					"protocol": "https",
+					"host": [
+						"mate",
+						"academy"
+					],
+					"path": [
+						"students-api",
+						"goods",
+						":itemID:245"
+					],
+					"variable": [
+						{
+							"key": "itemID:245",
+							"value": "245"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download unfinished tasks for user ID 1044",
+			"id": "ff3b717b-e91e-4221-ab29-6fbad5914436",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://mate.academy/students-api/todos?userId=1044&completed=FALSE",
+					"protocol": "https",
+					"host": [
+						"mate",
+						"academy"
+					],
+					"path": [
+						"students-api",
+						"todos"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1044"
+						},
+						{
+							"key": "completed",
+							"value": "FALSE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download completed tasks for user ID 4308",
+			"id": "bb5a7181-7923-4bd0-807d-c0538f772424",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://mate.academy/students-api/todos?userId=4308&completed=TRUE",
+					"protocol": "https",
+					"host": [
+						"mate",
+						"academy"
+					],
+					"path": [
+						"students-api",
+						"todos"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "4308"
+						},
+						{
+							"key": "completed",
+							"value": "TRUE"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

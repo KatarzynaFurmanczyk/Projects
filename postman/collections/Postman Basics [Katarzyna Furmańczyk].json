@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "0060fe11-287b-4f0f-b451-4b574d0760da",
+		"name": "Postman Basics [Katarzyna Furmańczyk]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "33344655-0060fe11-287b-4f0f-b451-4b574d0760da"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63711608-1e90-432a-af23-c53dd22a3e5a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "2dac7740-10de-44ff-873a-0428cec63b93",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":{\"username\":\"katfurm1\",\"email\":\"katfurm1@qa.team\",\"password\":\"1234qwert\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53bebe0d-943d-4456-8815-ce842d0b1cf7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "a5cb274a-e6fa-4a89-9389-a3ac28a9e667",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"user\":{\"email\":\"katfurm1@qa.team\",\"password\":\"1234qwert\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users/login",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecbeab73-0ca8-4bea-8dba-f9d1088cbd3e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "179f5db6-6ba9-479c-9809-e18275a38d91",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk3NTM3LCJ1c2VybmFtZSI6ImthdGZ1cm0xIiwiZXhwIjoxNzE1MjUxNjU1LCJpYXQiOjE3MTAwNjc2NTV9.GcnrSPqklXwYRygpwIeS1DBRGQNSkQCRkNzRHGbgL2w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": {\r\n        \"image\": null,\r\n        \"username\": \"katfurm1\",\r\n        \"bio\": \"info about user update\",\r\n        \"email\": \"katfurm1@qa.team\",\r\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk3NTM3LCJ1c2VybmFtZSI6ImthdGZ1cm0xIiwiZXhwIjoxNzE1MjUzNTI4LCJpYXQiOjE3MTAwNjk1Mjh9.KBIp3yTRvWVtAA1f06RALZatfW5-oMYBOa5lyE49u8k\",\r\n        \"effectiveImage\": \"https://static.productionready.io/images/smiley-cyrus.jpg\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/user",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63fc2854-5783-4348-8263-b54a9e1a3bb4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "903b6700-7fd8-47c7-bf5f-a274fe77035a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk3NTM3LCJ1c2VybmFtZSI6ImthdGZ1cm0xIiwiZXhwIjoxNzE1MjUxNjU1LCJpYXQiOjE3MTAwNjc2NTV9.GcnrSPqklXwYRygpwIeS1DBRGQNSkQCRkNzRHGbgL2w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/profiles/sylwia1/follow",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"profiles",
+						"sylwia1",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unfollow the user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a8f75a76-b161-4722-ab21-92a472c1834f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "049efe7d-3fb3-4299-9daa-044a5c31e3fb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk3NTM3LCJ1c2VybmFtZSI6ImthdGZ1cm0xIiwiZXhwIjoxNzE1MjUxNjU1LCJpYXQiOjE3MTAwNjc2NTV9.GcnrSPqklXwYRygpwIeS1DBRGQNSkQCRkNzRHGbgL2w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/profiles/sylwia1/follow",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"profiles",
+						"sylwia1",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
